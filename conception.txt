@@ -1,0 +1,34 @@
+L’application IAgenda est conçue pour permettre aux utilisateurs de gérer et suivre l’avancement de leurs tâches à l'aide d’une interface graphique interactive, en facilitanrt la gestion des tâches en fournissant des rappels automatisés de debut et fin de chaque tache, avec un suivi précis des délais et une interface interactive. Elle intègre des fonctionnalités pour ajouter, modifier et supprimer des tâches, ainsi que pour recevoir des notifications en temps réel sur l’état des tâches.
+
+Fonctionnalités Clés de l'Application
+
+    Gestion des Tâches :
+    	- L’utilisateur peut facilement gérer ses tâches à travers une interface graphique. Ces actions sont rendues possibles grâce à des champs de texte et des boutons interactifs.
+        - Les tâches sont affichées sous forme de liste avec leurs noms, temps de début et de fin. La mise à jour se fait en temps réelle et ils affectent .
+
+    Notifications et Rappels :
+        - Dès qu'une tâche commence, l’utilisateur est informé via une notification en temps réel, et les informations de cette tache s'affichent dans les champs pour la tache courrante, et l'application notifie également l’utilisateur 10 minutes avant la fin de chaque tâche, afin de garantir le respect des délais.
+	- L'application aussi renseigne l'utilisateur de la derniere tache passé avec son status terminé ou non terminé, et la prochaine tache à arrivé et son temps de début.
+
+    Planification Dynamique :
+        L’application utilise un agenda qui contient les tâches initiales, mais l'utilisateur peut le modifier à tout moment. L’interface graphique est dynamique et se met à jour instantanément en fonction des changements effectués.
+
+    Collecte de Réponses et Suivi de l’Avancement :
+        Un module de collecte de réponses interactives (questions à l'utilisateur) s'assure que les tâches sont bien complétées, permettant à l'utilisateur de valider l'achèvement des tâches et de répondre à des questions sur leur avancement.
+
+Aspect Technique
+
+    Interface Graphique avec Java Swing :
+        L'interface est réalisée à l'aide de Java Swing, avec des composants tels que des boutons, des champs de texte et des listes déroulantes. Pour une interaction fluide entre l'utilisateur et l'application. Le design est basé sur une architecture où chaque interaction de l'utilisateur est instantanément reflétée dans l'interface.
+
+    Gestion du Temps :
+        L'application utilise la bibliothèque java.util.Time pour gérer et comparer les horaires de début et de fin des tâches avec l’heure actuelle. Cela permet de suivre l’état des tâches en temps réel et d’envoyer des notifications à l’utilisateur en fonction de début et fin des tâches.
+
+    Gestion de la Concurrence et de la Parallélisation :
+        L’application exploite des classes de la bibliothèque java.util.concurrent pour gérer le parallèlisme des différentes opérations, et la gestion des threads, comme le rappel des tâches et l'interaction avec l'utilisateur.
+        openAgenda : Cette méthode initialise l'agenda de tâches et lance l’interface graphique dans un thread séparé, garantissant ainsi que l’interface soit prête avant d'effectuer toute autre opération.
+        taskReminder : Cette méthode s'exécute en continu grâce à un ScheduledExecutorService, vérifiant toutes les 2 secondes l’état des tâches. Elle s’assure que l'utilisateur est informé au moment present.
+        timeAsker : Fonctionne dans le thread principal pour gérer les interactions avec l'utilisateur en temps réel, en demandant des informations sur l'état des tâches et en mettant à jour leur statut.
+
+    Synchronisation et Flux d'Exécution :
+        - le lancement de l’interface graphique se fait avant toute autre opération via Future pour assurer l'exécution synchrone. Ensuite, les rappels de tâche et les interactions utilisateur fonctionnent simultanément mais de manière coordonnée, grâce à l’utilisation d'exécuteurs séparés pour chaque fonction parallèle.
